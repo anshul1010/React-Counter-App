@@ -24,13 +24,16 @@ export const useCounter = ({ initialCount = 0, delay = 3000 }) => {
   const handleDecrement = () => {
     //call function to handle error
     handleError();
-    updateCounter(-1);
+    if (count > 0) {
+      updateCounter(-1);
+    } else {
+      setError("0 is default value, cannot go below");
+    }
   };
 
   const handleError = () => {
     const timeNow = new Date().getTime();
     if (lastClicked.current && timeNow - lastClicked.current < delay) {
-      console.log("erere");
       setError("Please wait for 3 seconds to click again!");
       return;
     }
